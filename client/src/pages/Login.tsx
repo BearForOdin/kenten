@@ -1,5 +1,7 @@
+import { BikeIcon } from "lucide-react"
 import { heroSectionData } from "../assets/assets"
 import { useState } from "react"
+import { Link } from "react-router-dom"
 
 
 const Login = () => {
@@ -27,7 +29,33 @@ const Login = () => {
           <p className="text-white/60 font-serif text-xl max-w-sm mx-auto">Fresh groceries and organic produce, delivery to your doorstep.</p>
         </div>
       </div>
+
       {/* Right Side */}
+      <div className="flex-1 flex-center px-4 py-4 py-12 bg-app-cream">
+        <div className="w-full max-w-md">
+          {/* form header message */}
+           <div className="text-center mb-8">
+              <Link to="/" className="inline-flex items-center gap-2 mb-6">
+                  <BikeIcon className="size-8 text-app-green" />
+                  <span className="text-2xl font-semibold 
+                  text-app-green">Kenten</span>
+              </Link>
+              <h1>
+                {isLoginState ? "Sign in to your account" : "Sign up for an account"}
+              </h1>
+
+              <p className="text-sm text-app-text-light">
+                {isLoginState ? "Don't have an account?" : "Already have a account?"} 
+                <button onClick={()=>setIsLoginState(!isLoginState)} 
+                  className="text-orange-500 ml-1 font-semibold hover:text-orange-600
+                  transition-colors">
+                  {isLoginState ? "Create one" : "Sign in"}
+                </button>
+              </p>
+           </div>
+          {/* Login / Register Form */}
+        </div>
+      </div>
     </div>
   )
 }
