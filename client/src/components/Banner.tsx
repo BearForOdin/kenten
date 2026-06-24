@@ -1,4 +1,4 @@
-import { TruckIcon, XIcon, Zap, ZapIcon } from "lucide-react";
+import { TruckIcon, XIcon, ZapIcon } from "lucide-react";
 import { useState } from "react"
 
 
