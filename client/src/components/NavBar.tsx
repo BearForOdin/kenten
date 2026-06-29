@@ -1,12 +1,11 @@
-import { ArrowUpRightIcon, BikeIcon, ChevronDownIcon, MapPinIcon, MenuIcon, PackageIcon, SearchIcon, ShieldIcon, ShoppingCartIcon, UserIcon, XIcon } from "lucide-react";
-import { useState } from "react";
+import { ArrowUpRightIcon, BikeIcon, ChevronDownIcon, LogOutIcon, MapPinIcon, MenuIcon, PackageIcon, SearchIcon, ShieldIcon, ShoppingCartIcon, UserIcon, XIcon } from "lucide-react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 
 const NavBar = () => {
-    const user: any = {name: "Paa Joe", email: "paa@example.com",
-    isAdmin : true }
+    const user: any = null
     const {cartCount, setIsCartOpen} = {
         cartCount: 5,
         setIsCartOpen: (_data: any)=> {}
@@ -14,6 +13,19 @@ const NavBar = () => {
     const [searchQuery, setSearchQuery] = useState("")
     const [userMenuOpen, setUserMenuOpen] = useState(false)
     const navigate = useNavigate()
+
+    const handleSearch = (e: React.SubmitEvent)=>{
+        e.preventDefault()
+        if(searchQuery.trim()){
+            navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`)
+            setSearchQuery("")
+        }
+    }
+
+    const handleLogout = () =>{
+        setUserMenuOpen(false)
+        navigate("/");
+    }
 
   return (
     <nav className="bg-white sticky top-0 z-50 border-b border-app-border">
@@ -35,7 +47,7 @@ const NavBar = () => {
                 <Link to='/deals' className="text-app-orange">Deals</Link>
             </div>
             {/* Search */}
-            <form className="hidden sm:flex flex-1 max-w-sm text-xs
+            <form onSubmit={handleSearch} className="hidden sm:flex flex-1 max-w-sm text-xs
             sm:text-sm">
                 <div className="relative w-full">
                     <SearchIcon className="absolute left-2.5 top-1/2
@@ -61,7 +73,7 @@ const NavBar = () => {
                 {/* User */}
                 <div className="relative">
                     {user ? (
-                        <button className="flex items-center gap-2 p-2">
+                        <button onClick={()=> setUserMenuOpen(!userMenuOpen)} className="flex items-center gap-2 p-2">
                             <div className="size-7 rounded-full bg-green-950
                              text-white flex-center">
                                 {user.name.charAt(0).toUpperCase()}
@@ -71,7 +83,9 @@ const NavBar = () => {
                     )
                     :(
                         <div className="flex-center gap-2">
-                            <Link to='/login'>
+                            <Link to='/login'
+                            className="hidden md:flex items-center gap-2 bg-green-950 text-white
+                             px-4 py-2 rounded-full hover:bg-green-950-light transition-colors">
                             <UserIcon size={16}/> Sign In
                             </Link>
                             {userMenuOpen ? <XIcon className="md:hidden" 
@@ -116,6 +130,14 @@ const NavBar = () => {
                                 <Link to='/admin/products'
                                 className="dropdown-link"><ShieldIcon size={16}
                                 className="text-app-orange-dark"/> <span className="text-app-orange-dark">Admin Panel</span> </Link>
+                            )}
+                            {user && (
+                                <div className="border-t border-app-border pt-1">
+                                    <button onClick={handleLogout} className="flex items-center gap-3 px-4 py-2.5 text-sm
+                                    text-app-error hover:bg-red-50 w-full transition-colors">
+                                        <LogOutIcon size={16}/> Logout
+                                    </button>
+                                </div>
                             )}
                             </div>
                         </div>
