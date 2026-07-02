@@ -1,11 +1,12 @@
+import Hero from "../components/Home/Hero"
 
 
-const home = () => {
+const Home = () => {
   return (
-    <div>
-      Home
+    <div className="min-h-screen max-w-7wl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <Hero />
     </div>
   )
 }
 
-export default home
+export default Home
