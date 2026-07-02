@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 
 const NavBar = () => {
-    const user: any = null
+    const user: any = {name: "Paa Joe", email: "paa@gmail.com", isAdmin: true}
     const {cartCount, setIsCartOpen} = {
         cartCount: 5,
         setIsCartOpen: (_data: any)=> {}
